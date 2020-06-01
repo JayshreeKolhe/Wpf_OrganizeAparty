@@ -1,0 +1,164 @@
+﻿<Window x:Class="Wpf_OrganizeAparty.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_OrganizeAparty"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="580" Width="850" Background="#F7F2E5">
+    <Window.Resources>
+
+        <Storyboard x:Key="sbShowLeftMenu" >
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-113,105,0,0" To="0,105,0,0" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideLeftMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,105,0,0" To="-113,105,0,0" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="123*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="469*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#78BCC4" />
+        <Grid Grid.Row="0" Background="#78BCC4" Grid.ColumnSpan="2" Margin="227,0,-0.333,0">
+            
+                <ComboBox  x:Name="CoBx_Lang" HorizontalAlignment="Right" VerticalAlignment="Bottom" SelectionChanged="CoBx_Lang_SelectionChanged"  IsEditable="True"
+                    IsReadOnly="True"
+                    Text="en English" Width="80" SelectedIndex="0" Margin="10,0,72,15"/>
+            
+        </Grid>
+
+        <TextBlock 
+                   TextWrapping="Wrap"
+                   Margin="120,12,343.667,12" 
+                 
+                   FontSize="18"
+                   Foreground="Navy"
+                   FontWeight="Bold" Text="Organize a Party" Grid.Column="1"/>
+        <!--Left Panel-->
+        <StackPanel  Panel.ZIndex="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,1,0,141" Grid.RowSpan="2" Width="0">
+            <Canvas >
+
+                <StackPanel Panel.ZIndex="2" Style="{StaticResource spSlideLeft}" x:Name="spLeft" Background="#78BCC4" Width="140" Height="352" Margin="-113,105,0,0">
+
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="140" Height="40">
+                        <Button x:Name="Btn_Customer" Content="Manage Customers" Foreground="Gray" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top"  FontWeight="SemiBold" HorizontalContentAlignment="Left" Background="#78BCC4" BorderBrush="#78BCC4">
+
+                        </Button>
+                        <Image  Source="Icons/menu.png" Width="20" Height="20" VerticalAlignment="Top" Margin="0,2,0,2"/>
+                    </DockPanel>
+
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="140" >
+                        <Button x:Name="Btn_food" Content="Manage Food"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top"  FontWeight="SemiBold" HorizontalContentAlignment="Left" BorderBrush="#78BCC4" Background="#78BCC4" Click="Btn_food_Click" />
+                    </DockPanel>
+                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="140" >
+                        <Button x:Name="Btn_Decor" Content="Manage Decorations"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top"  FontWeight="SemiBold" HorizontalContentAlignment="Left" BorderBrush="#78BCC4" Background="#78BCC4" Click="Btn_Decor_Click" />
+                    </DockPanel>
+
+                </StackPanel>
+
+
+            </Canvas>
+        </StackPanel>
+        <!--Left Panel End-->
+
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" Height="492" Margin="0,0,1,0">
+            <TextBlock   Text="Customer Details"  Margin="40,0" Foreground="Gray" FontSize="16"/>
+
+            <StackPanel  Orientation="Vertical" Margin="15,20,15,0" HorizontalAlignment="Right">
+                <TextBlock TextWrapping="Wrap"
+                    Text="Enter customer name to filter list"
+                    HorizontalAlignment="Left"
+                    FontSize="8"
+                    Foreground="Gray" Height="14"  Grid.Row="1" Width="170"/>
+                <TextBox x:Name="Tbx_filter" Height="23"  TextWrapping="Wrap" HorizontalAlignment="Left" Width="170" 
+                    ToolTip="Enter part of first or last name to filter" TextChanged="Tbx_filter_TextChanged"/>
+            </StackPanel>
+            <ListBox Name="Lbx_Customers"  HorizontalAlignment="Right" Height="300" Width="170" Margin="15,5" Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="0,4">
+                        <Run Text="{Binding firstName, Mode=TwoWay}"/>
+                        <Run Text=" "/>
+                        <Run Text="{Binding lastName, Mode=TwoWay}" FontWeight="Bold"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom"  Margin="15,0,15,0">
+                <Button  x:Name="Btn_Delete"  Background="#78BCC4" Foreground="Red" Content="Delete" Width="82" Margin="0,0,3,0" Click="Btn_Delete_Click"/>
+                <Button  x:Name="Btn_Add" Foreground="Navy"  Background="#78BCC4" Content="Add"  Width="82" Margin="3,0,0,0" Click="Btn_Add_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel 
+            HorizontalAlignment="Left"
+            Height="414"
+            VerticalAlignment="Top"
+            Width="572"
+            Grid.Column="1" Grid.Row="1" 
+            Margin="10,60,0,0"
+            DataContext="{Binding ElementName=Lbx_Customers,Path=SelectedItem}">
+
+            <StackPanel Orientation="Horizontal" >
+                <StackPanel Orientation="Horizontal"  Width="260">
+                    <TextBlock Text="First Name" TextWrapping="Wrap" Width="70" VerticalAlignment="Top"/>
+                    <TextBox Name="Tbx_custFirstName" Text="{Binding firstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"  Width="160"  />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  Width="260" Margin="30,0,0,0"  >
+                    <TextBlock Text="Email Address" TextWrapping="Wrap"  Width="80" VerticalAlignment="Top"  />
+                    <TextBox Text="{Binding email}"  Width="160" Margin="5,0" VerticalAlignment="Top"/>
+                </StackPanel>
+            </StackPanel>
+
+
+
+            <StackPanel Orientation="Horizontal" Width="260" HorizontalAlignment="Left" Margin="0,5">
+                <TextBlock  Text="Last Name" TextWrapping="Wrap" Width="70" VerticalAlignment="Top"/>
+                <TextBox Name="Tbx_custLastName" Text="{Binding lastName}" TextWrapping="Wrap"  Width="160"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Width="260"  HorizontalAlignment="Left" >
+                <TextBlock  Width="70" Text="Gender" TextWrapping="Wrap" />
+                <ComboBox  Name="CoBx_gender" Height="20" Width="160" SelectedItem="{Binding gender}"/>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal" Width="260" HorizontalAlignment="Left" Margin="0,5,0,0">
+                <TextBlock  Width="70" Text="Telephone" TextWrapping="Wrap" />
+                <TextBox Text="{Binding telNumber}"  Width="160" />
+            </StackPanel>
+
+            <StackPanel   Orientation="Horizontal" Margin="270,-66,0,0" Width="260">
+                <TextBlock Text="Home Address" TextWrapping="Wrap"   Width="80" VerticalAlignment="Top" HorizontalAlignment="Left"  />
+                <TextBox Text="{Binding address}" Height="45" Width="160" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,0" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="540" Margin="0,20">
+                <TextBlock Text="Planned Parties" FontSize="12" />
+                <DataGrid  x:Name="Dgr_history" AutoGenerateColumns="False" Height="217" SelectionChanged="Dgr_history_SelectionChanged" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Date" Width="0.3*" Binding="{Binding partyDate}"/>
+                        <DataGridTextColumn Header="Type of party" Width="0.45*" Binding="{Binding partyType}"/>
+                        <DataGridTextColumn Header="Responsible Person" Width="0.45*" Binding="{Binding responsibleperson}"/>
+                        <DataGridTextColumn Header="Total cost €" Width="0.45*" Binding="{Binding partytotal}"/>
+                        <DataGridTextColumn Header="Payment status" Width="0.45*" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <Button  x:Name="Btn_PLanParty"  Background="#78BCC4"  Foreground="Navy" Content="Plan a Party"  Width="86" HorizontalAlignment="Right"  Margin="0,3,32,0" Click="Btn_PLanParty_Click" />
+
+        </StackPanel>
+    </Grid>
+</Window>

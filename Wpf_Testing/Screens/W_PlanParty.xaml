@@ -1,0 +1,195 @@
+﻿<Window x:Class="Wpf_OrganizeAparty.W_PlanParty"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_OrganizeAparty"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+       WindowStartupLocation="CenterOwner"
+        Title="W_PlanParty" Height="580" Width="850" Background="#F7F2E5">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="469*"/>
+        </Grid.RowDefinitions>
+
+        <Grid  Width="850" Background="#78BCC4">
+            <StackPanel Orientation="Horizontal" Margin="34,0,44,0"  >
+
+                <Button  Name="Btn_back" Height="32" Width="32" BorderThickness="0" ToolTip="Go back" Background="#78BCC4" Click="Btn_back_Click">
+                    <Image Width="30" Height="30"    Source="/Icons/back.png" />
+                </Button>
+                <TextBlock HorizontalAlignment="Center"  Margin="275,10,0,0"
+                TextWrapping="Wrap"  
+                FontSize="18"
+                Foreground="Navy"
+                FontWeight="Bold"
+               
+                Text="Organize a Party"/>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Foreground="Gray" FontSize="16" Grid.Row="1" Margin="27,0,0,0"><Run Text="Party Details"/>
+
+        </TextBlock>
+
+        <StackPanel HorizontalAlignment="Center" Margin="18,25,31.333,-2.333" VerticalAlignment="Center" Height="478" Width="769" Grid.Row="1"   >
+
+
+            <StackPanel Width="392" Height="25" HorizontalAlignment="Left" DataContext="{Binding ElementName=Lbx_Customers, Path=SelectedItem}" Margin="0,10,0,0">
+                <Grid HorizontalAlignment="Stretch"   >
+                    <TextBlock  Text="Customer : " Foreground="Gray" FontSize="14" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Name="Tbl_name"  Text="{Binding name}"  VerticalAlignment="Top" Foreground="Gray" FontSize="14" Margin="150,0,0,0"  />
+                </Grid>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" DataContext="{Binding ElementName=Lbx_Customers,Path=SelectedItem}">
+                <StackPanel Orientation="Horizontal"  Width="392"  >
+                    <TextBlock  Width="150" Text="Responsible person"  />
+                    <ComboBox x:Name="CoBx_responsiblePerson"  Width="200" SelectedItem="{Binding responsibleperson}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="16,0,0,0" >
+                    <TextBlock  Width="150" Text="Date of Party " TextWrapping="Wrap"/>
+                    <DatePicker  Name="datePicker"  FontSize="9" Width="200" DataContext="{Binding partyDate}" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+
+                <StackPanel Orientation="Vertical" Width="392">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Width="150" Text="Type of Party" TextWrapping="Wrap" />
+                        <ComboBox x:Name="CoBx_partyType"  Width="200" HorizontalAlignment="Right" SelectedItem="{Binding partyType}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5" >
+                        <TextBlock  Width="150" Text="Catering Service" TextWrapping="Wrap"/>
+                        <ComboBox Name="CoBx_catering"    Width="200"  SelectedItem="{Binding cateringService}"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Width="392" Margin="16,0,0,0">
+                    <TextBlock  Width="150" Text="Address of Party" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBox Width="200" Name="Tbx_partyAddress"  TextWrapping="Wrap" Text="{Binding partyAddress}" />
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+
+                <StackPanel ToolTip="Enter No. of guest including children" Orientation="Horizontal">
+                    <TextBlock Text="Number of Guest" Width="150" />
+                    <TextBox  Width="200"  Text="{Binding guest}"/>
+                </StackPanel>
+                <StackPanel ToolTip="Enter No. of veg dish" Margin="58,0,0,0" Orientation="Horizontal">
+                    <TextBlock Text="Veg" Width="150" />
+                    <TextBox Text="{Binding veg}" Width="200"/>
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Number of Children" Width="150" />
+                    <TextBox Text="{Binding child}" Width="200"/>
+                </StackPanel>
+                <StackPanel ToolTip="Enter No. of Non-veg dish" Margin="58,0,0,0" Orientation="Horizontal">
+                    <TextBlock Text="Non-Veg" Width="150" />
+                    <TextBox Text="{Binding nonveg}" Width="200"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="200" Margin="0,18,0,0">
+
+
+                <StackPanel Orientation="Vertical"  Width="392">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="364">
+                        <TextBlock  Text="Food Category" Height="20" Width="150"/>
+                        <ComboBox    Name="CoBx_foodCategory"  Width="200" HorizontalAlignment="Right" SelectionChanged="CoBx_foodCategory_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5" Orientation="Horizontal">
+                        <TextBlock Width="150" Text="Food Item"/>
+                        <ComboBox Name="CoBx_foodItem" DisplayMemberPath="foodName" Width="200" SelectionChanged="CoBx_foodItem_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Width="357" DataContext="{Binding SelectedItem, ElementName=CoBx_foodItem}">
+                        <TextBox Name="Tbx_foodItem"  Width="150" Text="{Binding foodName}" />
+                        <TextBox ToolTip="Edit quantity" Name="Tbx_foodQuantity" Text="{Binding foodQuantity }" Width="110" TextChanged="Tbx_foodQuantity_TextChanged" PreviewTextInput="Tbx_foodQuantity_PreviewTextInput" />
+                        <Button Name="Btn_foodCartDelete" Foreground="red" Content="Delete" Width="90" Background="#78BCC4" Click="Btn_foodCartDelete_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Background="White" HorizontalAlignment="Left" Width="349" Margin="1,0,0,0">
+                        <TextBlock Text="Selected Item" Width="150" Foreground="Gray"/>
+                        <TextBlock Text="Quantity"  Width="110" Foreground="Gray"/>
+                        <TextBlock Text="Cost €" Width="90" Foreground="Gray"/>
+                    </StackPanel>
+                    <ListBox  Name="Lbx_foodCart"   HorizontalAlignment="Left"  Height="90" Width="350" SelectionChanged="Lbx_foodCart_SelectionChanged" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Width="300"  >
+                                    <TextBlock FontSize="13" Text="{Binding foodName}" Name="Tbx_ffName" Width="150" />
+                                    <TextBlock Name="Tbx_fQuantity" FontSize="13" Text="{Binding foodQuantity}" Width="110" />
+                                    <TextBlock Name="Tbx_fCost"   FontSize="13" Text="{Binding foodCost}"  Width="30" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Total cost for Food                                           " Width="250" />
+                        <TextBox Text="{Binding ElementName=foodCost, Path=Items.Count}"  TextAlignment="Right" Name="Tbx_totfoodCost" Width="95"  />
+                        <TextBlock Text="€" Width="5" />
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <StackPanel Orientation="Vertical"  Width="368" Margin="16,0,0,0">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="364">
+                        <TextBlock  Text="Movable and Decoration"  Width="150"/>
+                        <ComboBox Name="CoBx_decorCategory"  Width="200"  HorizontalAlignment="Right" SelectionChanged="CoBx_decorCategory_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5" Orientation="Horizontal">
+                        <TextBlock   Width="150" Text="Select Item"/>
+                        <ComboBox Name="CoBx_decorItem" Width="200" SelectionChanged="CoBx_decorItem_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Width="357" DataContext="{Binding SelectedItem, ElementName=CoBx_decorItem}">
+                        <TextBox Name="Tbx_decorItem" Width="150" Text="{Binding decorationName}" />
+                        <TextBox Name="Tbx_decorQuantity" Width="110" Text="{Binding decorationQuantity}"/>
+                        <Button Name="Btn_decorCartDelete" Foreground="red" Content="Delete" Width="90" Background="#78BCC4" Click="Btn_decorCartDelete_Click" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Background="White" HorizontalAlignment="Left" Width="349" Margin="1,0,0,0">
+                        <TextBlock Text="Selected Item" Width="150" Foreground="Gray"/>
+                        <TextBlock Text="Quantity"  Width="110" Foreground="Gray"/>
+                        <TextBlock  Text="Cost €" Width="90" Foreground="Gray"/>
+                    </StackPanel>
+                    <ListBox Name="Lbx_decorCart"   HorizontalAlignment="Left"  Height="90" Width="350" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Width="300"  >
+                                    <TextBlock FontSize="13" Text="{Binding decorationName}" Width="150" />
+                                    <TextBlock FontSize="13" Text="{Binding decorationQuantity}" Width="110" />
+                                    <TextBlock FontSize="13" Text="{Binding decorationCost}" Width="30"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Total cost for Movables and Decoration          " Width="250" />
+                        <TextBox  Text="{Binding decortotal}" TextAlignment="Right" Width="95"  Name="Tbx_totdecorCost" />
+                        <TextBlock Text="€" Width="5"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="409,5,0,0">
+                <TextBlock Text="Total cost for Party                                           " Width="250" />
+                <TextBox Name="Tbx_totPartyCost" Text="{Binding partytotal}" TextAlignment="Right" Width="95"   />
+                <TextBlock Text="€" Width="5"/>
+            </StackPanel>
+            <Button  x:Name="Btn_AddDetails"  Background="#78BCC4"  Foreground="Navy" Content="Add Details"  Width="99" HorizontalAlignment="Right"  Margin="0,10,10,0"  Click="Btn_AddDetails_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
