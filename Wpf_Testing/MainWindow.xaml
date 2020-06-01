@@ -23,6 +23,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="46*"/>
             <ColumnDefinition Width="123*"/>
+            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
